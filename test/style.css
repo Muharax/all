@@ -1,0 +1,19 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+
+canvas {
+	width:auto;
+	height:auto;
+    display: block;
+	background-color: black;
+}
+
+#c {
+	
+	width:auto;
+	height:auto;
+	
+}
