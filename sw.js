@@ -2,9 +2,9 @@ const registerServiceWorker = async () => {
   if ('serviceWorker' in navigator) {
     try {
       const registration = await navigator.serviceWorker.register(
-        '/alweb/sw.js',
+        '/all/sw.js',
         {
-          scope: '/alweb/',
+          scope: '/all/',
         }
       );
       if (registration.installing) {

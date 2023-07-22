@@ -23,6 +23,10 @@ table.tabela-b  td, table.tabela-market td,table.tabela-c  td{
 table.tabela-f, table.tabela-f thead, table.tabela-f  tbody, table.tabela-f  th, table.tabela-f  td, table.tabela-f  tr { 
 		font-size:15px;
 }
+
+
+
+
 #baseindex < a{
 		text-decoration:none;
 }
@@ -1329,7 +1333,7 @@ transform: translateY(-50%);
 	top: 12px;
     left: 10px;
 	position:absolute;
-	}
+}
 
 .orange{
 	text-align: center;
@@ -2663,9 +2667,7 @@ hr{
 	font-size:16px;
 }
 
-#index {
-	padding: 20px;
-}
+
 .tabela-dodaj-uzytkownika {
 	margin-left: auto;
 	margin-right: auto;

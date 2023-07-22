@@ -1,31 +1,49 @@
 <?php
-	
+
+
+
 $z1 = $_POST['z1'];
 $z2 = $_POST['z2'];
 $z3 = $_POST['z3'];
 $z4 = $_POST['z4'];
+$data = date("Y-m-d G:i:s");
 
-	require_once('../../../database/db-connect.php');
-	require_once('../../../session.php');
+
+	require('../../database/db.php');
+	require('../../session.php');
 	$i = 1;
-	$b ='INSERT INTO `epersum_urlop_k`(
+	
+	$z = $db_PDO->prepare('INSERT INTO `epersum_urlop_k`(
 							`user_id`,
 							`date1`,
 							`date2`,
 							`powod`,
 							`kod`,
-							`accept`
+							`accept`,
+							`czas_dodania`
 						)
 						VALUES(
-							"'.$_SESSION['id'].'",
-							"'.$z1.'",
-							"'.$z2.'",
-							"'.$z3.'",
-							"'.$z4.'",
-							"'.$i.'"
+							:user_id,
+							:date1,
+							:date2,
+							:powod,
+							:kod,
+							:accept,
+							:data
+							"
 							
 							
-						)';
-	$zadanie = $db_PDO->query($b);
+						)');
+						
+	$z->execute([ 
+					':user_id'=>$_SESSION['id'],
+					':date1'=>$z1,
+					':date2'=>$z2,
+					':powod'=>$z3,
+					':kod'=>$z4,
+					':accept'=>$i,
+					':data'=>$data 
+	]);
+	
 	exit();
 ?>

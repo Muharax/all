@@ -1,12 +1,25 @@
-<?php 
-require('../../session.php');
-require('funkcje.php');
+<style>
+	.G1{
+		color: green;
+	}
+	.wx{
+		width:25%;
+	}
+</style>
+<?php
+	require('../../session.php');
+	$z = $db_PDO->prepare('SELECT urlop, pkt FROM users WHERE id=:id');
+	$z->execute(['id'=>htmlentities($_SESSION['id'])]);
+	$w = $z->fetch();
+	$i = $w['urlop'];
+	$p = $w['pkt'];
 ?>
 <div class="small">
-	<table class="table table-striped table-dark">
+	<table class="table table-striped table-dark wx">
 		<thead class="thead-dark">
 		  <tr>
-			<th scope="col">Dostępne dni: <?php echo ile();?></td>
+			<th scope="col"><span class="G1">Dostępne dni:</span> <?php echo $i;?></th>
+			<th scope="col"><span class="G1">Punkty:</span> <?php echo $p;?></th>
 		  </tr>
 		</thead>
 	</table>
@@ -21,11 +34,11 @@ require('funkcje.php');
 		 <tr>
 			<td scope="col">OD</td>
 			<td scope="col">
-				<input class="form-control" type="date" id="data1" onkeyup="validate();" value="">
+				<input class="form-control" type="date" id="data1" value="2023-07-08">
 			</td>
 			<td scope="col">DO</td>
 			<td scope="col">
-				<input class="form-control" type="date" id="data2" onkeyup="validate();" value="">
+				<input class="form-control" type="date" id="data2" value="2023-07-09">
 			</td>
 			<td scope="col">
 			</td>
@@ -35,12 +48,12 @@ require('funkcje.php');
 		<tr>
 			<td scope="col">POWÓD</td>
 			<td scope="col">
-				<input class="form-control" type="text" id="data3" onkeyup="validate();">
+				<input class="form-control" type="text" id="data3" value="X">
 			</td>
 			<td scope="col">KOD</td>
 			<td scope="col">
-				<select class="form-control" id="data4" onkeyup="validate();">
-					<option value="">--Please choose an option--</option>
+				<select class="form-control" id="data4">
+					<option value="198">--Please choose an option--</option>
 					<option value="198">Postój</option>
 					<option value="245">Spóźnienie</option>
 					<option value="344">Urlop</option>
@@ -51,7 +64,7 @@ require('funkcje.php');
 				</select>
 			</td>
 			<td scope="col">
-				<button id="mym1" class="btn btn-warning" disabled>ZAPISZ</button>
+				<button id="btnZapisz" class="btn btn-warning">ZAPISZ</button>
 			</td>
 		</tr>
 		</tbody>
