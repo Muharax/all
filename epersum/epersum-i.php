@@ -10,8 +10,11 @@
 	margin-left:3px;
 	margin-right:3px;
 }
-#index-0{
+#index2{
 	margin-bottom:10px;
+}
+#indexX{
+	
 }
 </style>
 <?php
@@ -19,16 +22,19 @@
 	require '../header.php';
 	require '../logo.php';		
 ?>
-<div class="index-0">
+<div id="indexX">
 	<div id="index">
 		<a href="#" id="b1" class="btn btn-info btn-sm">URLOP</a>
-		<a href="#" id="a2" class="btn btn-info btn-sm">ROZLICZENIA</a>
+		<a href="#" id="rozliczenia" class="btn btn-info btn-sm">ROZLICZENIA</a>
 		<a href="#" id="a3" class="btn btn-info btn-sm">DOKUMENTY</a>
 		<a href="#" id="a4" class="btn btn-info btn-sm">ODBICIE</a>
 		<a href="#" id="a5" class="btn btn-warning btn-sm">ADMINISTRACJA</a>
 	</div>
-	<div id="div1"></div>
-	<div id="div3"></div>
+
+	<div id="index2">
+		<div id="div1"></div>
+		<div id="div3"></div>
+	</div>
 </div>
 <?php require '../footer.php';?>
 
@@ -47,6 +53,14 @@ $(document).on("click", '#b1', function() {
 		$("#div3").load(URL+"/urlop/core/pobierz-urlop.php");
 		$("#div3").show();
 });
+
+$(document).on("click", '#rozliczenia', function() {
+	 var text = $( this ).text();
+	 console.log(text);
+		$("#div1").load(URL+"/rozliczenia/"+text+".php");
+		$("#div3").show();
+});
+
 
  $(document).on("click", '#btnZapisz', function() {
 		var tekst = $( '#data1' ).val();

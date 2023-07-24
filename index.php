@@ -1,3 +1,14 @@
+<style>
+#window{
+	padding:5px;
+	width: 80%;
+    background-color: #31373c;
+    position: absolute;
+    top: 50px;
+    right: 42px;
+}
+</style>
+
 <?php 		
 
 	require ('session.php');
@@ -6,12 +17,9 @@
 	
 	
 	if(isset($_SESSION['uprawnienia'])){
-		
-		$i = $_SESSION['uprawnienia'];
-			
-		switch ($i) {
+		switch ($_SESSION['uprawnienia']) {
 		case 1:
-			include('index/upr1.inc');
+			include('index/upr1.php');
 			break;
 		case 2:
 			include('index/upr2.inc');
@@ -19,11 +27,10 @@
 		default:
 		   include('index/bupr.inc');
 			break;
-}
-
-}
-
-	require('footer.php');
-
+		}
+	}
 ?>
+<div id="window"></div>
+
+<?php require('footer.php'); ?>
 

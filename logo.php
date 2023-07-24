@@ -25,7 +25,7 @@
 				echo '<div class="table_center">
 					  <div class="drop-down">
 						<div id="dropDown" class="drop-down__button">
-	<span class="drop-down__name">' . $_SESSION['imie'] . ' ' . $_SESSION['nazwisko'] . '</span>
+	<span class="drop-down__name">'.$_SESSION['imie'].' '.$_SESSION['nazwisko'].'</span>
 						</div>
 						<div class="drop-down__menu-box">
 						  <ul class="drop-down__menu">
@@ -67,8 +67,4 @@
 		}
 		?>
 	</div>
-	
-	
-	
-	<div id="clear-both"></div>
 </div>

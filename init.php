@@ -1,6 +1,25 @@
-<?php 
+<?php
+	$page_name = 'all';
+
+// ======================================================
 	
-	defined('URL') or define('URL', 'http://'.$_SERVER['SERVER_NAME']. "/all/");
+	$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+	$domainName = $_SERVER['HTTP_HOST'];
+	defined('URL') or define('URL', $protocol.$domainName."/".$page_name."/");
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	
+
 ?>

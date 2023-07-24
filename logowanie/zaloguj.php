@@ -1,108 +1,98 @@
 <?php
 	
+	include('../alert.php');
+	error_reporting(E_ALL);
+	
+	$startTime = microtime(true);
 	if($_SERVER["REQUEST_METHOD"] === "POST"){
-		
-		if(empty($_POST['user']) || empty($_POST['pass'])){
-			session_start();
-			$_SESSION['alert'] = 'UZUPEŁNIJ DANE';
-			header('Location: ../index.php');
-			exit();
-		}else{
+		$min_len = 5;
+		$max_len = 20;
+		if(!empty($_POST['user']) && !empty($_POST['pass'])){
 			$login = htmlentities($_POST['user']);
 			$pass = htmlentities($_POST['pass']);
-		
-		if(is_numeric($login) || is_numeric($pass)){
-			session_start();
-			$_SESSION['alert'] = 'Co to ?';
-			header('Location: ../logowanie/logowanie.php');
-			exit();
-		}
-	
-		if(!empty($login) && !empty($pass) && !empty($_POST['user']) && !empty($_POST['pass'])){
-				if(strlen($pass) >= 5 && strlen($pass) <= 20){
-					if($login === $pass){
-						session_start();
-						$_SESSION['alert'] = 'Login i hasło nie mogą być takie same';
-						header('Location: ../logowanie/logowanie.php');
-						exit;
-					}else{
-						if(strlen($login) >= 5 && strlen($login) <= 20){
-							require_once ('../database/db.php');
-										
-			$zadanie = $db_PDO->prepare('SELECT * FROM `users` WHERE `user`= :name LIMIT 1');
-			$zadanie->execute([ 'name' => htmlentities($login) ]);
-			// $zadanie->bindParam(1, htmlentities($login), PDO::PARAM_STR);
-			$zadanie->execute();
-			
-				if(empty($db_PDO)){
-					echo 'ERROR DB';
-					exit;
-				}
-			$ilu = $zadanie->rowCount();
-					if($ilu > 0){
+			if(strlen($pass) >= $min_len && strlen($pass) <= $max_len){
+				if($login !== $pass){
+					require_once ('../database/db.php');
+					$zadanie = $db_PDO->prepare('SELECT * FROM `users` WHERE `user`=:name LIMIT 1');
+					$zadanie->execute([ ':name' => $login ]);
+					$ilu = $zadanie->rowCount();
+					if($ilu === 1){
 						$wiersz = $zadanie->fetch();
-						if(password_verify(htmlentities($pass), htmlentities($wiersz['pass']))){
-							
+						if($login === $wiersz['user']){
+							if(password_verify($pass, $wiersz['pass'])){
 								session_start();
-								
-								$_SESSION['zalogowany'] 	= true;
-								$_SESSION['ready'] 			= "ready";
-								$_SESSION['id'] 			= $wiersz['id'];
-								$_SESSION['user'] 			= $wiersz['user'];
-								$_SESSION['imie'] 			= $wiersz['imie'];
-								$_SESSION['nazwisko'] 		= $wiersz['nazwisko'];
-								$_SESSION['uprawnienia'] 	= $wiersz['uprawnienia'];
-								$_SESSION['pkt'] 			= $wiersz['pkt'];
-								$_SESSION['logo'] 			= $wiersz['logo'];
-								// $_SESSION['URL'] 			= defined('URL') or define('URL', 'http://'.$_SERVER['SERVER_NAME']. "/alweb/");
-								
-								$logowania 					= $wiersz['logowania'];
-								$user 						= $wiersz['user'];
-								$log 						= $logowania + 1;
-								
-								$zadanie = $db_PDO->prepare('UPDATE `users` SET `logowania`= :log  WHERE user = :user');
-								$zadanie->bindParam(':log', $log, PDO::PARAM_INT);
-								$zadanie->bindParam(':user', $user, PDO::PARAM_STR);
-								$zadanie->execute();
-								
-								// $zadanie = $db_PDO->query("UPDATE `users` SET `logowania`='$log' WHERE user='$user'");
-								
-								
-								
-							 session_write_close();
-							 header('Location: ../index.php');
-							 exit;
+								$token = htmlentities($_POST['token']);
+								if($token === $_SESSION['token']){
+
+									$_SESSION['zalogowany'] 	= true;
+									$_SESSION['ready'] 			= "ready";
+									$_SESSION['id'] 			= $wiersz['id'];
+									$_SESSION['user'] 			= $wiersz['user'];
+									$_SESSION['imie'] 			= $wiersz['imie'];
+									$_SESSION['nazwisko'] 		= $wiersz['nazwisko'];
+									$_SESSION['uprawnienia'] 	= $wiersz['uprawnienia'];
+									$_SESSION['pkt'] 			= $wiersz['pkt'];
+									$logowania 					= $wiersz['logowania'];
+									$user 						= $wiersz['user'];
+									$log 						= $logowania + 1;
+									
+									$zadanie = $db_PDO->prepare('UPDATE `users` SET `logowania`= :log  WHERE `user` = :user');
+									$zadanie->bindParam(':log', $log, PDO::PARAM_INT);
+									$zadanie->bindParam(':user', $user, PDO::PARAM_STR);
+									$zadanie->execute();
+									$totalTime = microtime(true) - $startTime;
+									
+									$alert = 'Witaj '.$_SESSION['imie'];
+									alert($alert,1);
+									header('Location: ../index.php');
+									exit;
+								}else{
+									alert('Token się nie zgadza',2);
+									header('Location: ../logowanie/logowanie.php');
+									exit;
+								}
+							}else{
+								session_start();
+								alert('Hasło nieprawidłowe',2);
+								header('Location: ../logowanie/logowanie.php');
+								exit;
+							}
 						}else{
 							session_start();
-							$_SESSION['alert'] = 'ZŁE HASŁO';
+							alert('Login nieprawidłowy',2);
 							header('Location: ../logowanie/logowanie.php');
 							exit;
-						}	
+						}
 					}else{
 						session_start();
-						$_SESSION['alert'] = 'Brak użytkownika w bazie';
+						alert('Brak użytkownika w bazie',2);
 						header('Location: ../logowanie/logowanie.php');
-						exit();
-					}
+						exit;
+					}	
 				}else{
 					session_start();
-					$_SESSION['alert'] = 'Login min 5 max 20 znaków</div>';
+					alert('Login i hasło nie może być takie samo',2);
 					header('Location: ../logowanie/logowanie.php');
-					exit;
-				}}}else{
-					session_start();
-					$_SESSION['alert'] = 'Hasło min 5 max 20 znaków';
-					// echo "<script>
-								// $.alert({
-									// title: 'UŻYTKOWNIK DODANY POPRAWNIE',
-									// content: 'AA',
-								// });</script>";
-					header('Location: ../logowanie/logowanie.php');
-					exit;
-					}}}}else{
-						echo 'NO POST REQUEST';
-						exit;
-					}
+					exit();
+				}
+			}else{
+				session_start();
+				alert('Hasło min '.$min_len.' max '.$max_len.' znaków',2);
+				header('Location: ../logowanie/logowanie.php');
+				exit;
+			}
+		}else{
+			session_start();
+			alert('Uzupełnij dane',2);
+			header('Location: ../logowanie/logowanie.php');
+			exit;
+		}
+	}else{
+		session_start();
+		alert('POST is broken',2);
+		header('Location: ../logowanie/logowanie.php');
+		exit;
+	}
 
 
 ?>

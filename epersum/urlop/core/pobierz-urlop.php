@@ -15,14 +15,13 @@
 <?php
 		require('../../../session.php');
 		$data = date("Y-m-d");
-		$a ='SELECT * FROM `epersum_urlop_k` WHERE user_id="' . $_SESSION['id'] . '"';
+		$a ='SELECT * FROM `epersum_urlop_k` WHERE user_id="' . $_SESSION['id'] . '" ORDER BY `id` ASC';
 		$zadanie = $db_PDO->query($a);
 		$ile = $zadanie->rowCount();
 ?>
 <table class="table table-dark">
 	<tbody>
 		<tr>
-			<th scope="col">ID</th>
 			<th scope="col">KOD</th>
 			<th scope="col">OD</th>
 			<th scope="col">DO</th>
@@ -35,12 +34,11 @@
 		for ($i=0; $i < $ile; $i++){
 				$wiersz = $zadanie->fetch();
 		echo '<tr>
-				  <td scope="row">'.$_SESSION['user'].'</td>
 				  <td scope="row">'.$wiersz['kod'].'</td>
-				  <td scope="row"><input class="center tx" type="date" value="'.$wiersz['date1'].'" disabled /></td>
-				  <td scope="row"><input class="center tx" type="date" value="'.$wiersz['date2'].'" disabled /></td>
-				  <td scope="row"><textarea class="center tx tx2" rows="1" placeholder="'.$wiersz['powod'].'" disabled></textarea></td>
-				  <td scope="row"><input class="center tx" type="date" value="'.$wiersz['czas_dodania'].'" disabled/ ></td>
+				  <td scope="row">'.$wiersz['date1'].'</td>
+				  <td scope="row">'.$wiersz['date2'].'</td>
+				  <td scope="row">'.$wiersz['powod'].'</td>
+				  <td scope="row">'.$wiersz['czas_dodania'].'</td>
 				  <td scope="row">'.$wiersz['ilosc_dni'].'</td>
 				  <td scope="row">';
 			  

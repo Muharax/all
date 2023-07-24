@@ -13,6 +13,9 @@
 	$w = $z->fetch();
 	$i = $w['urlop'];
 	$p = $w['pkt'];
+	$z1 = $db_PDO->prepare('SELECT kod, opis FROM epersum_kod');
+	$z1->execute();
+	$ile = $z1->rowCount();
 ?>
 <div class="small">
 	<table class="table table-striped table-dark wx">
@@ -53,14 +56,15 @@
 			<td scope="col">KOD</td>
 			<td scope="col">
 				<select class="form-control" id="data4">
-					<option value="198">--Please choose an option--</option>
-					<option value="198">Postój</option>
-					<option value="245">Spóźnienie</option>
-					<option value="344">Urlop</option>
-					<option value="455">Opieka</option>
-					<option value="566">Przepustka płatna</option>
-					<option value="677">Przepustka niepłatna</option>
-					<option value="788">Przepustka służbowa</option>
+					<option value="">--Please choose an option--</option>
+					<?php 
+					
+					for($i=0;$i<$ile;$i++){
+						$w = $z1->fetch();
+						echo '<option value='.$w['kod'].'>'.$w['kod'].' - '.$w['opis'].'</option>';
+					};
+					
+					?>
 				</select>
 			</td>
 			<td scope="col">

@@ -1,8 +1,3 @@
-<?php
-	error_reporting(E_ALL);
-	include('init.php');
-?>
-	
 <!DOCTYPE HTML>
 <html lang="pl-PL">
     <head>
@@ -27,7 +22,7 @@
 <!--------------------------- ICO ------------------------------------->
 	<link rel="icon" href="<?php echo URL;?>img/favicon.png" sizes="16x16">
 <!--------------------------- CSS ------------------------------------->
-	<link rel="stylesheet" type="text/css" href="<?php echo URL;?>css/style35.css">
+	<link rel="stylesheet" type="text/css" href="<?php echo URL;?>css/style.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo URL;?>css/test5.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo URL;?>css/default.css"/>
 	<link rel="stylesheet" type="text/css" href="<?php echo URL;?>css/component.css"/>
@@ -45,16 +40,6 @@
 	<script type="text/javascript" src="<?php echo URL;?>js/jquery-MSGpopup/jquery-msgpopup.js"></script>
 	<link rel="stylesheet" type="text/css" href="<?php echo URL;?>js/jquery-MSGpopup/jquery-msgpopup.css">
 <!-- <!------------------------------------------ jqplot --------------------------------------------------->
-	<link rel="stylesheet" href="<?php echo URL;?>js/jqueryjqplot/jquery.jqplot.min.css">		
-	<script src="<?php echo URL;?>js/jqueryjqplot/jquery.jqplot.min.js"></script>
-	<script type="text/javascript" src="<?php echo URL;?>js/jqueryjqplot/plugins/jqplot.bubbleRenderer.js"></script>
-	<script type="text/javascript" src="<?php echo URL;?>js/jqueryjqplot/plugins/jqplot.dateAxisRenderer.js"></script>
-	<script type="text/javascript" src="<?php echo URL;?>js/jqueryjqplot/plugins/jqplot.categoryAxisRenderer.js"></script>
-	<script type="text/javascript" src="<?php echo URL;?>js/jqueryjqplot/plugins/jqplot.canvasTextRenderer.js"></script>
-	<script type="text/javascript" src="<?php echo URL;?>js/jqueryjqplot/plugins/jqplot.canvasAxisTickRenderer.js"></script>
-	<script type="text/javascript" src="<?php echo URL;?>js/jqueryjqplot/plugins/jqplot.ohlcRenderer.js"></script>
-	<script type="text/javascript" src="<?php echo URL;?>js/jqueryjqplot/plugins/jqplot.pieRenderer.js"></script>
-	<script type="text/javascript" src="<?php echo URL;?>js/jqueryjqplot/plugins/jqplot.highlighter.js"></script>		
 <!------------------------------------------ DataTables -------------------------------------->			
 	<link rel="stylesheet" type="text/css" href="<?php echo URL;?>js/DataTables/datatables.min.css"/>
 	<script type="text/javascript" src="<?php echo URL;?>js/DataTables/datatables.min.js"></script>
